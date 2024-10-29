@@ -26,11 +26,43 @@ on:
       - ".github/workflows/**"
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "yarn"
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            .yarn/cache
+            .yarn/unplugged
+            .yarn/build-state.yml
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
+
   nextjs:
+    needs: setup
     uses: ./.github/workflows/nextjs.yml
     secrets: inherit
 
   cypress:
-    needs: nextjs
+    needs: [setup, nextjs]
     uses: ./.github/workflows/cypress.yml
     secrets: inherit
