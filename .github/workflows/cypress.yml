@@ -38,6 +38,9 @@ jobs:
         run: yarn dev & npx wait-on http://localhost:3000
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          BASE_URL_DEV: ${{ secrets.BASE_URL_DEV }}
+          BASE_URL_PROD: ${{ secrets.BASE_URL_PROD }}
 
       - name: Run Cypress tests
         run: yarn cypress run
