@@ -47,10 +47,10 @@ jobs:
 
   nextjs:
     needs: setup
-    uses: ./.github/workflows/nextjs.yml
+    uses: ./.github/workflows/build-nextjs.yml
     secrets: inherit
 
   cypress:
     needs: [setup, nextjs]
-    uses: ./.github/workflows/cypress.yml
+    uses: ./.github/workflows/basic-tests.yml
     secrets: inherit
