@@ -6,7 +6,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not set');
+    if (process.env.NODE_ENV === 'production') {
+        throw new Error('DATABASE_URL is not set');
+    }
+    console.warn('DATABASE_URL is not set. Using dummy URL for build process.');
 }
 
-export const db = drizzle(process.env.DATABASE_URL);
+export const db = drizzle(process.env.DATABASE_URL!);

@@ -12,8 +12,6 @@ export async function GET() {
 export async function POST(request: NextRequest) {
     const { content, topic, generatedWithAI } = await request.json();
 
-
-
     const response = await db.insert(anecdotesTable).values({
         content: content,
         topic: topic,
