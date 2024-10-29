@@ -249,6 +249,7 @@ const AnecdoteForm: React.FC<{ setTab: (tab: string) => void }> = ({ setTab }) =
         >
           Write Manually
         </Button>
+
         <Button
           onClick={() => {
             setGenerationType('ai');

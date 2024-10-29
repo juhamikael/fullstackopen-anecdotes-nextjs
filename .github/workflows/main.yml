@@ -1,17 +1,5 @@
 name: Main Workflow
 on:
-  push:
-    branches: [master, main]
-    paths:
-      - "**/*.ts"
-      - "**/*.tsx"
-      - "**/*.js"
-      - "**/*.jsx"
-      - "package.json"
-      - "yarn.lock"
-      - ".env.example"
-      - "cypress/**"
-      - ".github/workflows/**"
   pull_request:
     branches: [master, main]
     paths:
