@@ -13,8 +13,20 @@ jobs:
           echo "DATABASE_URL exists: ${{ !!secrets.DATABASE_URL }}"
           echo "DATABASE_URL length: ${#DATABASE_URL}"
           echo "First 10 chars of DATABASE_URL: ${DATABASE_URL:0:10}..."
+          echo "OPENAI_API_KEY exists: ${{ !!secrets.OPENAI_API_KEY }}"
+          echo "BASE_URL_DEV exists: ${{ !!secrets.BASE_URL_DEV }}"
+          echo "BASE_URL_PROD exists: ${{ !!secrets.BASE_URL_PROD }}"
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          BASE_URL_DEV: ${{ secrets.BASE_URL_DEV }}
+          BASE_URL_PROD: ${{ secrets.BASE_URL_PROD }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "yarn"
 
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -29,12 +41,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: "yarn"
 
       - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
