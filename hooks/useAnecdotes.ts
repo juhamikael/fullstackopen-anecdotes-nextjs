@@ -1,6 +1,6 @@
 "use client"
 import { useAppStore } from '@/store/useAppStore';
-import { Anecdote, AnecdoteWithoutId } from "@/types";
+import { Anecdote } from "@/types";
 import { toast } from "sonner"
 
 export const useAnecdotes = () => {
