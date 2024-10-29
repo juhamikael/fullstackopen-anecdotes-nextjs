@@ -28,7 +28,9 @@ on:
 jobs:
   nextjs:
     uses: ./.github/workflows/nextjs.yml
+    secrets: inherit
 
   cypress:
     needs: nextjs
     uses: ./.github/workflows/cypress.yml
+    secrets: inherit
