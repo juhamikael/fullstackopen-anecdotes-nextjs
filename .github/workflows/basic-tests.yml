@@ -6,6 +6,7 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    name: Cypress E2E Tests
     steps:
       - uses: actions/checkout@v4
 
