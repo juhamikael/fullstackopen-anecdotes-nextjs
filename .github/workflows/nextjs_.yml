@@ -1,0 +1,27 @@
+# name: Next.js CI/CD
+# on:
+#   push:
+#   pull_request:
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     env:
+#       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - name: Use Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: "20.9.0"
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build nextjs project
+#         run: npm run build
+#         env:
+#           DATABASE_URL: ${{ secrets.DATABASE_URL }}
