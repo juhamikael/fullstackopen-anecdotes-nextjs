@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET() {
     const anecdotes = await db.select().from(anecdotesTable);
     return NextResponse.json(anecdotes);
+
 }
 
 export async function POST(request: NextRequest) {
