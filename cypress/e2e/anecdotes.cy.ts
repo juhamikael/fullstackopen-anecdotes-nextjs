@@ -31,6 +31,7 @@ describe('Anecdotes App', () => {
         cleanupAllTestAnecdotes();
     });
 
+
     describe('Navigation and Layout', () => {
         it('shows correct tabs and navigation', () => {
             // Check if all tabs are present
