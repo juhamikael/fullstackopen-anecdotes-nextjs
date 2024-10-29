@@ -53,7 +53,7 @@ describe('Anecdotes App', () => {
 
     describe('Manual Anecdote Creation', () => {
         beforeEach(() => {
-            cy.contains('Write Manually').click();
+            cy.get('#write-manually').click();
         });
 
         it('creates an anecdote manually with all steps', () => {
@@ -210,7 +210,7 @@ describe('Anecdotes App', () => {
         beforeEach(() => {
             // Create a test anecdote first
             cy.get('#create').click();
-            cy.contains('Write Manually').click();
+            cy.get('#write-manually').click();
             cy.get('input[placeholder*="Programming"]').type('e2e-testing');
             cy.get('#next-button').click();
             cy.get('textarea[placeholder*="Share your story"]').type(`Management test content ${Date.now()}`);
