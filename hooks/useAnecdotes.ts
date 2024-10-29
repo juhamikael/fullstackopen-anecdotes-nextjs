@@ -14,7 +14,7 @@ export const useAnecdotes = () => {
 
     const initializeAnecdotes = async () => {
         try {
-            const fetchedAnecdotes = await fetch("http://localhost:3000/api/service",
+            const fetchedAnecdotes = await fetch("/api/service",
                 {
                     method: "GET"
                 });
@@ -47,7 +47,7 @@ export const useAnecdotes = () => {
 
     const createAnecdote = async (content: string, topic: string, generatedWithAI: boolean = false) => {
         try {
-            const response = await fetch("http://localhost:3000/api/service", {
+            const response = await fetch("/api/service", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -69,7 +69,7 @@ export const useAnecdotes = () => {
 
     const voteAnecdote = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/service`, {
+            const response = await fetch(`/api/service`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -89,7 +89,7 @@ export const useAnecdotes = () => {
 
     const deleteAnecdote = async (id: number) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/service`, {
+            const response = await fetch(`/api/service`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
