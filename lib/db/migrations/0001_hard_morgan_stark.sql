@@ -1,0 +1,1 @@
+ALTER TABLE "anecdotes" ADD COLUMN "topic" text NOT NULL;
