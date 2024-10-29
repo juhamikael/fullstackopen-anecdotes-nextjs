@@ -160,7 +160,7 @@ describe('Anecdotes App', () => {
         beforeEach(() => {
             // Create a test anecdote first
             cy.get('#create').click();
-            cy.contains('Write Manually').click();
+            cy.get('#write-manually').click();
             cy.get('input[placeholder*="Programming"]').type('e2e-testing');
             cy.get('#next-button').click();
             cy.get('textarea[placeholder*="Share your story"]').type(`Filter test content ${Date.now()}`);
@@ -173,37 +173,40 @@ describe('Anecdotes App', () => {
 
         it('filters by topic', () => {
             cy.get('input[placeholder*="Use topic:"]').type('topic:e2e-testing');
+            cy.wait(500);
             cy.get('tbody tr').should('have.length.at.least', 1);
         });
 
         it('filters by content', () => {
-            // Create a test anecdote to filter
-            const testTopic = 'TestTopic';
-            const testContent = `This is a test content`;
+            const testContent = `Filter content test ${Date.now()}`;
 
-            // Go to create tab
+            // Create test anecdote
             cy.get('#create').click();
-            cy.contains('Write Manually').click();
-            cy.get('input[placeholder*="Programming"]').type(testTopic);
+            cy.get('#write-manually').click();
+            cy.get('input[placeholder*="Programming"]').type('e2e-testing');
             cy.get('#next-button').click();
             cy.get('textarea[placeholder*="Share your story"]').type(testContent);
             cy.get('#next-button').click();
             cy.get('#post-button').click();
+            cy.wait(500);
 
-            // Go back to anecdotes tab
+            // Go back to anecdotes tab and filter
             cy.get('#anecdotes').click();
-
-            // Apply filter
-            cy.get('input[placeholder*="Use topic:"]').type(`content:${testContent}`);
+            cy.wait(500);
+            cy.get('input[placeholder*="Use topic:"]')
+                .should('be.visible')
+                .clear()
+                .type(`content:${testContent}`);
+            cy.wait(500);
             cy.get('tbody tr').should('have.length', 1);
             cy.contains(testContent).should('be.visible');
-
-            // Cleanup
-            cleanupAllTestAnecdotes();
         });
 
         it('shows no results message when no matches', () => {
-            cy.get('input[placeholder*="Use topic:"]').type('topic:nonexistent12345');
+            cy.get('input[placeholder*="Use topic:"]')
+                .clear()
+                .type('topic:nonexistent12345');
+            cy.wait(500);
             cy.contains('No matching anecdotes found.').should('be.visible');
         });
     });

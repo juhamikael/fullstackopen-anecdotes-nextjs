@@ -245,6 +245,7 @@ const AnecdoteForm: React.FC<{ setTab: (tab: string) => void }> = ({ setTab }) =
           }}
           variant={generationType === 'manual' ? 'default' : 'outline'}
           className="flex-1"
+          id="write-manually"
         >
           Write Manually
         </Button>
@@ -255,6 +256,7 @@ const AnecdoteForm: React.FC<{ setTab: (tab: string) => void }> = ({ setTab }) =
           }}
           variant={generationType === 'ai' ? 'default' : 'outline'}
           className="flex-1"
+          id="generate-with-ai"
         >
           Generate with AI
         </Button>
