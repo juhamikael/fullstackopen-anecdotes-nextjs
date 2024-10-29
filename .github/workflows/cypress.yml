@@ -9,13 +9,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download build cache
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "yarn"
+
+      - name: Restore dependencies and build cache
         uses: actions/cache@v4
         with:
           path: |
             .next
             node_modules
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+            .yarn/cache
+            .yarn/unplugged
+            .yarn/build-state.yml
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Cache Cypress binary
         uses: actions/cache@v4
@@ -25,14 +35,6 @@ jobs:
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Install dependencies
-        if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: npm install -g yarn && yarn
 
       - name: Start the application
         run: yarn dev & npx wait-on http://localhost:3000
