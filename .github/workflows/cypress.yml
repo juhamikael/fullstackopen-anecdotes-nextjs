@@ -1,0 +1,40 @@
+name: Cypress Tests
+on:
+  workflow_call:
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next
+            node_modules
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm install -g yarn && yarn
+
+      - name: Start the application
+        run: yarn dev & npx wait-on http://localhost:3000
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Run Cypress tests
+        run: yarn cypress run
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-report
+          path: cypress/videos/
+          retention-days: 30

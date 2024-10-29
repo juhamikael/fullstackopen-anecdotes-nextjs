@@ -1,0 +1,14 @@
+name: Main Workflow
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  nextjs:
+    uses: ./.github/workflows/nextjs.yml
+
+  cypress:
+    needs: nextjs
+    uses: ./.github/workflows/cypress.yml
