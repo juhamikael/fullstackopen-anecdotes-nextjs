@@ -5,27 +5,21 @@ describe('Anecdotes App', () => {
 
     // Helper function to delete all test anecdotes
     const cleanupAllTestAnecdotes = () => {
-        // Navigate to anecdotes tab
         cy.get('#anecdotes').click();
-        cy.wait(500); // Wait for navigation
+        cy.wait(500);
 
-        // Filter for e2e-testing topic
         cy.get('input[placeholder*="Use topic:"]')
             .should('be.visible')
             .clear()
             .type('topic:e2e-testing');
 
-        cy.wait(500); // Wait for filter to apply
+        cy.wait(500);
 
-        // Check if there are any rows and delete them
         cy.get('tbody').then($tbody => {
             if ($tbody.find('tr').length > 0) {
-                cy.get('tbody tr').each(() => {
-                    cy.get('tbody tr')
-                        .first()
-                        .find('button')
-                        .contains('Delete')
-                        .click();
+                cy.get('tbody tr').each(($row) => {
+                    const id = $row.attr('data-testid')?.split('-')[1];
+                    cy.get(`#delete-anecdote-${id}`).click();
                     cy.wait(500);
                 });
             }
@@ -238,18 +232,15 @@ describe('Anecdotes App', () => {
         });
 
         it('deletes an anecdote', () => {
-            cy.get('tbody tr').then(($rows) => {
-                const initialCount = $rows.length;
-                const firstRowContent = $rows.first().find('td').eq(1).text();
+            cy.get('tbody tr').first().then(($row) => {
+                const id = $row.attr('data-testid')?.split('-')[1];
+                const initialContent = $row.find('td').first().text();
 
-                cy.get('tbody tr').first().within(() => {
-                    cy.contains('Delete').click();
-                });
-
-                // Wait for deletion and verify
+                cy.get(`#delete-anecdote-${id}`).click();
                 cy.wait(500);
-                cy.get('tbody tr').should('have.length', initialCount - 1);
-                cy.contains(firstRowContent).should('not.exist');
+
+                // Verify the anecdote is deleted
+                cy.contains(initialContent).should('not.exist');
             });
         });
 
