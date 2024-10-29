@@ -179,7 +179,7 @@ describe('Anecdotes App', () => {
         it('filters by content', () => {
             // Create a test anecdote to filter
             const testTopic = 'TestTopic';
-            const testContent = `UniqueContent${Date.now()}`;
+            const testContent = `This is a test content`;
 
             // Go to create tab
             cy.get('#create').click();
