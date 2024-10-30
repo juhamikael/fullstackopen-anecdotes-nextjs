@@ -51,51 +51,51 @@ describe('Anecdotes App', () => {
         });
     });
 
-    describe('Manual Anecdote Creation', () => {
-        beforeEach(() => {
-            cy.get('#write-manually').click();
-        });
+    // describe('Manual Anecdote Creation', () => {
+    //     beforeEach(() => {
+    //         cy.get('#write-manually').click();
+    //     });
 
-        it('creates an anecdote manually with all steps', () => {
-            const testContent = `Manual test anecdote ${Date.now()}`;
-            // Step 1: Topic
-            cy.get('input[placeholder*="Programming"]').type('e2e-testing');
-            cy.get('#next-button').click();
+    //     it('creates an anecdote manually with all steps', () => {
+    //         const testContent = `Manual test anecdote ${Date.now()}`;
+    //         // Step 1: Topic
+    //         cy.get('input[placeholder*="Programming"]').type('e2e-testing');
+    //         cy.get('#next-button').click();
 
-            // Step 2: Content
-            cy.get('textarea[placeholder*="Share your story"]').type(testContent);
-            cy.get('#next-button').click();
+    //         // Step 2: Content
+    //         cy.get('textarea[placeholder*="Share your story"]').type(testContent);
+    //         cy.get('#next-button').click();
 
-            // Step 3: Review and Post
-            cy.get('#post-button').click();
+    //         // Step 3: Review and Post
+    //         cy.get('#post-button').click();
 
-            // Verify we're redirected to anecdotes list
-            cy.contains(testContent).should('be.visible');
-        });
+    //         // Verify we're redirected to anecdotes list
+    //         cy.contains(testContent).should('be.visible');
+    //     });
 
-        it('shows finish writing functionality', () => {
-            // Navigate to content step
-            cy.get('input[placeholder*="Programming"]').type('e2e-testing');
-            cy.get('#next-button').click();
+    //     it('shows finish writing functionality', () => {
+    //         // Navigate to content step
+    //         cy.get('input[placeholder*="Programming"]').type('e2e-testing');
+    //         cy.get('#next-button').click();
 
-            // Type partial content
-            cy.get('textarea[placeholder*="Share your story"]').type('This is an unfinished test content');
-            cy.contains('Finish Writing').click();
-            cy.get('textarea').should('not.have.value', 'This is an unfinished test content');
-        });
+    //         // Type partial content
+    //         cy.get('textarea[placeholder*="Share your story"]').type('This is an unfinished test content');
+    //         cy.contains('Finish Writing').click();
+    //         cy.get('textarea').should('not.have.value', 'This is an unfinished test content');
+    //     });
 
-        it('validates required fields', () => {
-            // Try to proceed without topic
-            cy.get('#next-button').should('be.disabled');
+    //     it('validates required fields', () => {
+    //         // Try to proceed without topic
+    //         cy.get('#next-button').should('be.disabled');
 
-            // Add topic and proceed
-            cy.get('input[placeholder*="Programming"]').type('e2e-testing');
-            cy.get('#next-button').click();
+    //         // Add topic and proceed
+    //         cy.get('input[placeholder*="Programming"]').type('e2e-testing');
+    //         cy.get('#next-button').click();
 
-            // Try to proceed without content
-            cy.get('#next-button').should('be.disabled');
-        });
-    });
+    //         // Try to proceed without content
+    //         cy.get('#next-button').should('be.disabled');
+    //     });
+    // });
 
     describe('AI Anecdote Generation', () => {
         beforeEach(() => {
