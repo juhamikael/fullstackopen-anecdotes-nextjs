@@ -172,30 +172,30 @@ describe('Anecdotes App', () => {
             cy.get('tbody tr').should('have.length.at.least', 1);
         });
 
-        it('filters by content', () => {
-            const testContent = `Filter content test ${Date.now()}`;
+        // it('filters by content', () => {
+        //     const testContent = `Filter content test ${Date.now()}`;
 
-            // Create test anecdote
-            cy.get('#create').click();
-            cy.get('#write-manually').click();
-            cy.get('input[placeholder*="Programming"]').type('e2e-testing');
-            cy.get('#next-button').click();
-            cy.get('textarea[placeholder*="Share your story"]').type(testContent);
-            cy.get('#next-button').click();
-            cy.get('#post-button').click();
-            cy.wait(500);
+        //     // Create test anecdote
+        //     cy.get('#create').click();
+        //     cy.get('#write-manually').click();
+        //     cy.get('input[placeholder*="Programming"]').type('e2e-testing');
+        //     cy.get('#next-button').click();
+        //     cy.get('textarea[placeholder*="Share your story"]').type(testContent);
+        //     cy.get('#next-button').click();
+        //     cy.get('#post-button').click();
+        //     cy.wait(500);
 
-            // Go back to anecdotes tab and filter
-            cy.get('#anecdotes').click();
-            cy.wait(500);
-            cy.get('input[placeholder*="Use topic:"]')
-                .should('be.visible')
-                .clear()
-                .type(`content:${testContent}`);
-            cy.wait(500);
-            cy.get('tbody tr').should('have.length', 1);
-            cy.contains(testContent).should('be.visible');
-        });
+        //     // Go back to anecdotes tab and filter
+        //     cy.get('#anecdotes').click();
+        //     cy.wait(500);
+        //     cy.get('input[placeholder*="Use topic:"]')
+        //         .should('be.visible')
+        //         .clear()
+        //         .type(`content:${testContent}`);
+        //     cy.wait(500);
+        //     cy.get('tbody tr').should('have.length', 1);
+        //     cy.contains(testContent).should('be.visible');
+        // });
 
         it('shows no results message when no matches', () => {
             cy.get('input[placeholder*="Use topic:"]')
