@@ -43,3 +43,5 @@ next-env.d.ts
 /cypress/videos/
 /test-results/
 local.db
+
+.vercel
