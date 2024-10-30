@@ -1,5 +1,7 @@
 name: Main Workflow
 on:
+  push:
+    branches: [master, main]
   pull_request:
     branches: [master, main]
     paths:
@@ -54,3 +56,20 @@ jobs:
     needs: [setup, nextjs]
     uses: ./.github/workflows/basic-tests.yml
     secrets: inherit
+
+  deploy:
+    needs: [setup, nextjs, cypress]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@latest
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          PRODUCTION: ${{ github.event_name == 'push' }}
