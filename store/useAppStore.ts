@@ -11,6 +11,7 @@ interface AppState {
     updateAnecdote: (updatedAnecdote: Anecdote) => void;
     setFilter: (filter: string) => void;
     removeAnecdote: (id: number) => void;
+
 }
 
 export const useAppStore = create<AppState>()(
